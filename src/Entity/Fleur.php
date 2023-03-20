@@ -30,6 +30,10 @@ class Fleur
     #[ORM\JoinColumn(nullable: false)]
     private ?CouleurFleur $couleurFleur = null;
 
+    #[ORM\ManyToOne(inversedBy: 'fleurs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ModeVente $modeVente = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +95,18 @@ class Fleur
     public function setCouleurFleur(?CouleurFleur $couleurFleur): self
     {
         $this->couleurFleur = $couleurFleur;
+
+        return $this;
+    }
+
+    public function getModeVente(): ?ModeVente
+    {
+        return $this->modeVente;
+    }
+
+    public function setModeVente(?ModeVente $modeVente): self
+    {
+        $this->modeVente = $modeVente;
 
         return $this;
     }
