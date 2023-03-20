@@ -9,10 +9,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CouleurFleurFixtures extends Fixture
-{
-    private $passwordHasher;
-
-    
+{       
 
     public function load(ObjectManager $manager): void
     {
