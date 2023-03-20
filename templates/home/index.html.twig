@@ -3,7 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<h1>Hello HomeController!</h1>
+<h2>Bienvenue {{app.user.nom}}</h2>
 
 <div>
     <a href = "{{path('app_logout')}}">Se déconnecter</a>
