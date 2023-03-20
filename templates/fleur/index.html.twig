@@ -2,8 +2,31 @@
 
 {% block title %}Liste des fleurs{% endblock %}
 
+
 {% block body %}
+    <div class="p-5">
+        <h2>Liste des fleurs</h2>
 
-
-
+        <table class="table table-responsive">
+            <tr>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Couleur</th>
+                <th>Mode de vente</th>
+                <th>Prix</th>
+                <th>Conditionnement</th>
+                <th>Description</th>
+            </tr>
+            {% for fleur in fleurs %}
+                <tr>
+                    <td><img src='{{ asset ("/fleur01.jpg") }}'/></td>
+                    <td>{{ fleur.nom }}</td>
+                    <td>{{ fleur.modeVente.nom }}</td>
+                    <td>{{ fleur.prix }}</td>
+                    <td>{{ fleur.conditionnement.nombre }}</td>
+                    <td>{{ fleur.remarques }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
