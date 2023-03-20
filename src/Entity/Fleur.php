@@ -26,6 +26,10 @@ class Fleur
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $remarques = null;
 
+    #[ORM\ManyToOne(inversedBy: 'fleurs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CouleurFleur $couleurFleur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +79,18 @@ class Fleur
     public function setRemarques(?string $remarques): self
     {
         $this->remarques = $remarques;
+
+        return $this;
+    }
+
+    public function getCouleurFleur(): ?CouleurFleur
+    {
+        return $this->couleurFleur;
+    }
+
+    public function setCouleurFleur(?CouleurFleur $couleurFleur): self
+    {
+        $this->couleurFleur = $couleurFleur;
 
         return $this;
     }
