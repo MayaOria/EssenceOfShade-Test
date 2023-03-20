@@ -25,4 +25,6 @@ class ModeVenteFixtures extends Fixture
 
         
     }
+
+    
 }

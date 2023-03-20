@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -46,6 +48,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $societe = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Fleur::class, orphanRemoval: true)]
+    private Collection $fleurs;
+
+    public function __construct()
+    {
+        $this->fleurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,6 +195,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSociete(string $societe): self
     {
         $this->societe = $societe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Fleur>
+     */
+    public function getFleurs(): Collection
+    {
+        return $this->fleurs;
+    }
+
+    public function addFleur(Fleur $fleur): self
+    {
+        if (!$this->fleurs->contains($fleur)) {
+            $this->fleurs->add($fleur);
+            $fleur->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFleur(Fleur $fleur): self
+    {
+        if ($this->fleurs->removeElement($fleur)) {
+            // set the owning side to null (unless already changed)
+            if ($fleur->getUser() === $this) {
+                $fleur->setUser(null);
+            }
+        }
 
         return $this;
     }

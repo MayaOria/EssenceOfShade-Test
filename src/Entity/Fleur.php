@@ -43,6 +43,10 @@ class Fleur
     #[ORM\ManyToMany(targetEntity: Saison::class, mappedBy: 'fleurs')]
     private Collection $saisons;
 
+    #[ORM\ManyToOne(inversedBy: 'fleurs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->saisons = new ArrayCollection();
@@ -160,6 +164,18 @@ class Fleur
         if ($this->saisons->removeElement($saison)) {
             $saison->removeFleur($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
