@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FleurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,14 @@ class Fleur
     #[ORM\ManyToOne(inversedBy: 'fleurs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Conditionnement $conditionnement = null;
+
+    #[ORM\ManyToMany(targetEntity: Saison::class, mappedBy: 'fleurs')]
+    private Collection $saisons;
+
+    public function __construct()
+    {
+        $this->saisons = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +133,33 @@ class Fleur
     public function setConditionnement(?Conditionnement $conditionnement): self
     {
         $this->conditionnement = $conditionnement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Saison>
+     */
+    public function getSaisons(): Collection
+    {
+        return $this->saisons;
+    }
+
+    public function addSaison(Saison $saison): self
+    {
+        if (!$this->saisons->contains($saison)) {
+            $this->saisons->add($saison);
+            $saison->addFleur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaison(Saison $saison): self
+    {
+        if ($this->saisons->removeElement($saison)) {
+            $saison->removeFleur($this);
+        }
 
         return $this;
     }
