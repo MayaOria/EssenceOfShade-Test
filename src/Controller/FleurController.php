@@ -51,8 +51,34 @@ class FleurController extends AbstractController
 
     }
 
-    #[Route('/formulaire/update/fleur')]
-    public function UpdateFleur(Request $req, ManagerRegistry $doctrine): Response 
-    {}
+    #[Route('/fleur/update/{id}', name:'fleur_update')]
+    public function UpdateFleur (Fleur $fleur, Request $req, ManagerRegistry $doctrine): Response 
+    {
+        
+        $formFleur = $this->createForm(FleurType::class, $fleur);
+        $formFleur->handleRequest($req);
+
+        if($formFleur->isSubmitted()){
+
+            $em = $doctrine->getManager();
+
+            // dd($fleur);
+
+            //On associe le user à la fleur qu'on crée
+            
+            $em->persist($fleur);
+            
+            $em->flush();
+            
+            return $this->redirectToRoute("app_fleur");
+        }
+
+        else
+        {
+            $vars = ['formFleur' => $formFleur->createView()];
+            return $this->render('fleur/creation_fleur.html.twig', $vars);
+        }
+
+    }
 
 }
