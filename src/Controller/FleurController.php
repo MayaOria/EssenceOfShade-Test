@@ -32,11 +32,10 @@ class FleurController extends AbstractController
         if($formFleur->isSubmitted()){
 
             $em = $doctrine->getManager();
-
-            // dd($fleur);
-
             //On associe le user à la fleur qu'on crée
             $fleur->setUser($this->getUser());
+                        
+            // dd($fleur);
             $em->persist($fleur);
             $em->flush();
             
@@ -78,6 +77,21 @@ class FleurController extends AbstractController
             $vars = ['formFleur' => $formFleur->createView()];
             return $this->render('fleur/creation_fleur.html.twig', $vars);
         }
+
+    }
+
+    #[Route('/fleur/delete/{id}', name:'fleur_delete')]
+    public function DeleteFleur (Request $req, ManagerRegistry $doctrine): Response 
+    {
+        $id = $req->get('id');
+         $em = $doctrine->getManager();
+         $repository = $em->getRepository(Fleur::class);
+         $fleur = $repository->findOneBy(['id' => $id]);
+
+         $em->remove($fleur);
+         $em->flush();
+
+         return $this->redirectToRoute("app_fleur");
 
     }
 

@@ -34,7 +34,8 @@
                     </ul>
                     </td>
                     <td>{{ fleur.remarques }}</td>
-                    <td><a href ="{{ path ('fleur_update', { id: fleur.id } )}}">Update</a></td>
+                    <td><a href ="{{ path ('fleur_update', { id: fleur.id } )}}">Modifier</a></td>
+                    <td><a href ="{{ path ('fleur_delete', { id: fleur.id } )}}">Supprimer</a></td>
                 </tr>
             {% endfor %}
         </table>
