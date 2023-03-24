@@ -15,6 +15,7 @@
                 <th>Mode de vente</th>
                 <th>Prix</th>
                 <th>Conditionnement</th>
+                <th>Saisons</th>
                 <th>Description</th>
             </tr>
             {% for fleur in fleurs %}
@@ -25,9 +26,19 @@
                     <td>{{ fleur.modeVente.nom }}</td>
                     <td>{{ fleur.prix }}</td>
                     <td>{{ fleur.conditionnement.nombre }}</td>
+                    <td>
+                    <ul>Saisons : 
+                    {% for saison in fleur.saisons %}
+                    <li>{{saison.mois}}</li>
+                    {% endfor %}
+                    </ul>
+                    </td>
                     <td>{{ fleur.remarques }}</td>
+                    <td><a href ="{{ path ('fleur_update', { id: fleur.id } )}}">Update</a></td>
                 </tr>
             {% endfor %}
         </table>
     </div>
+
+
 {% endblock %}

@@ -18,7 +18,7 @@ class Saison
     #[ORM\Column(length: 50)]
     private ?string $mois = null;
 
-    #[ORM\ManyToMany(targetEntity: Fleur::class, inversedBy: 'saisons')]
+    #[ORM\ManyToMany(targetEntity: Fleur::class, inversedBy: 'saisons', cascade:['persist','remove'])]
     private Collection $fleurs;
 
     public function __construct()

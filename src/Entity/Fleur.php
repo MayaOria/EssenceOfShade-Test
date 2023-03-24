@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: FleurRepository::class)]
 class Fleur
 {
@@ -40,7 +41,7 @@ class Fleur
     #[ORM\JoinColumn(nullable: false)]
     private ?Conditionnement $conditionnement = null;
 
-    #[ORM\ManyToMany(targetEntity: Saison::class, mappedBy: 'fleurs')]
+    #[ORM\ManyToMany(targetEntity: Saison::class, mappedBy: 'fleurs', cascade:['persist','remove'])]
     private Collection $saisons;
 
     #[ORM\ManyToOne(inversedBy: 'fleurs')]
