@@ -4,8 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Fleur;
 use App\Form\FleurType;
+use App\Form\SaisonType;
+use App\Form\ModeVenteType;
+use App\Form\CouleurFleurType;
+use App\Form\ConditionnementType;
 use App\Repository\FleurRepository;
+use App\Repository\SaisonRepository;
+use App\Repository\ModeVenteRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\CouleurFleurRepository;
+use App\Repository\ConditionnementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,10 +22,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FleurController extends AbstractController
 {
     #[Route('/fleur', name: 'app_fleur')]
-    public function index(FleurRepository $repo): Response
+    public function index(FleurRepository $repoFleur, CouleurFleurRepository $repoCouleur, ModeVenteRepository $repoModeVente, ConditionnementRepository $repoConditionnement, SaisonRepository $repoSaison): Response
     {
-        $fleurs = $repo->findAll();
-        $vars = ['fleurs' => $fleurs];
+        $fleurs = $repoFleur->findAll();
+        $couleurs = $repoCouleur->findAll();
+        $modeVentes = $repoModeVente->findAll();
+        $conditionnements = $repoConditionnement->findAll();
+        $saisons = $repoSaison->findAll();
+
+        $formCouleur = $this->createForm(CouleurFleurType::class, $couleurs);
+        $formModeVente = $this->createForm(ModeVenteType::class, $modeVentes);
+        $formConditionnements = $this->createForm(ConditionnementType::class, $conditionnements);
+        $formSaisons = $this->createForm(SaisonType::class, $saisons);
+
+        $vars = ['fleurs' => $fleurs,
+                 'formCouleur' => $formCouleur,
+                 'formModeVente' => $formModeVente,
+                 'formConditionnements' => $formConditionnements,
+                 'formSaisons' => $formSaisons,
+                 ];
         
         return $this->render('fleur/index.html.twig', $vars);
     }

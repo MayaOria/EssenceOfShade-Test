@@ -7,6 +7,22 @@
     <div class="p-5">
         <h2>Liste des fleurs</h2>
 
+        {{ form_start (formCouleur) }}
+        {{ form_widget (formCouleur) }}
+        {{ form_end (formCouleur) }}
+
+        {{ form_start (formModeVente) }}
+        {{ form_widget (formModeVente) }}
+        {{ form_end (formModeVente) }}
+
+        {{ form_start (formConditionnements) }}
+        {{ form_widget (formConditionnements) }}
+        {{ form_end (formConditionnements) }}
+
+        {{ form_start (formSaisons) }}
+        {{ form_widget (formSaisons) }}
+        {{ form_end (formSaisons) }}
+
         <table class="table table-responsive">
             <tr>
                 <th>Image</th>
