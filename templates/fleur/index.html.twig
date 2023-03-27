@@ -57,5 +57,21 @@
         </table>
     </div>
 
+{% block customjs %}
+
+<script>
+console.log('kgkgkg');
+    const filtres = document.querySelectorAll('.filtre');
+
+// Bouclez sur chaque élément et ajoutez un écouteur d'événements de clic
+        filtres.forEach(function(element) {
+        element.addEventListener('click', (e) => {
+        console.log('ok');
+        });
+});
+
+        
+</script>
+{% endblock %}
 
 {% endblock %}
