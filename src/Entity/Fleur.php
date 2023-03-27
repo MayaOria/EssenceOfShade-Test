@@ -41,7 +41,7 @@ class Fleur
     #[ORM\JoinColumn(nullable: false)]
     private ?Conditionnement $conditionnement = null;
 
-    #[ORM\ManyToMany(targetEntity: Saison::class, mappedBy: 'fleurs', orphanRemoval: false, cascade:['persist','remove'])]
+    #[ORM\ManyToMany(targetEntity: Saison::class, inversedBy: 'fleurs', orphanRemoval: false, cascade:['persist'])]
     private Collection $saisons;
 
     #[ORM\ManyToOne(inversedBy: 'fleurs')]
