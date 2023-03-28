@@ -45,7 +45,7 @@ class Fleur
     private Collection $saisons;
 
     #[ORM\ManyToOne(inversedBy: 'fleurs')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     public function __construct()

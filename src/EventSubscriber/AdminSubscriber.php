@@ -1,0 +1,37 @@
+<?php
+namespace App\EventSubscriber;
+
+use App\Entity\Fleur;
+
+use App\Entity\BlogPost;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+
+class AdminSubscriber implements EventSubscriberInterface
+{
+    private $security;
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            BeforeEntityPersistedEvent::class => ['setUser'],
+        ];
+    }
+
+    public function setUser(BeforeEntityPersistedEvent $event)
+    {
+        $entity = $event->getEntityInstance();
+
+        if (!($entity instanceof Fleur)) {
+            return;
+        }
+
+        
+        $entity->setUser($this->security->getUser());
+    }
+}
