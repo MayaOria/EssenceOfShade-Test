@@ -18,6 +18,7 @@ use App\Entity\Fleur;
 class DashboardController extends AbstractDashboardController
 {
 
+    
     public function __construct(private AdminUrlGenerator $adminUrlGenerator)
     {        
     }
@@ -55,7 +56,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::section('OPTIONS FLEURS', 'fa-solid fa-gears');
+        yield MenuItem::section('FLEURS', 'fa-solid fa-leaf');
+
+        yield MenuItem::subMenu('fleurs', 'fas fa-list')->setSubItems(
+            [MenuItem::linkToCrud('Ajouter une fleur', 'fas fa-plus', Fleur::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Listing', 'fas fa-eye', Fleur::class)]);
 
         yield MenuItem::subMenu('Conditionnement', 'fas fa-list')->setSubItems(
         [MenuItem::linkToCrud('Ajouter un conditionnement', 'fas fa-plus', Conditionnement::class)->setAction(Crud::PAGE_NEW),
@@ -73,13 +78,15 @@ class DashboardController extends AbstractDashboardController
             [MenuItem::linkToCrud('Ajouter une saison', 'fas fa-plus', Saison::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Listing', 'fas fa-eye', Saison::class)]);
 
-        yield MenuItem::section('FLEURS', 'fa-solid fa-leaf');
+        yield MenuItem::section('COMPOSITIONS', 'fa-solid fa-book');
+        yield MenuItem::section('ÉVÈNEMENTS', 'fa-solid fa-calendar');
+        yield MenuItem::section('DEVIS', 'fa-solid fa-file');
 
-        yield MenuItem::subMenu('fleurs', 'fas fa-leaf')->setSubItems(
-            [MenuItem::linkToCrud('Ajouter une fleur', 'fas fa-plus', Fleur::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Listing', 'fas fa-eye', Fleur::class)]);
+        
 
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
+
+    
 }

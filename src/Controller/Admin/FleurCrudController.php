@@ -27,7 +27,7 @@ class FleurCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            // IdField::new('id')->hideOnForm(),
             TextField::new('nom'),
             MoneyField::new('prix')->setCurrency('EUR'),
             ImageField::new('image')
