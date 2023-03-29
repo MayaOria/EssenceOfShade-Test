@@ -4,10 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Entity\Fleur;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use Symfony\Component\Translation\TranslatableMessage;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -34,14 +38,21 @@ class FleurCrudController extends AbstractCrudController
                 ->setBasePath(self::FLEUR_BASE_PATH)
                 ->setUploadDir(self::FLEUR_UPLOAD_DIR)
                 ->setSortable(false),
-            AssociationField::new('couleurFleur')->autocomplete(),
-            AssociationField::new('modeVente'),
-            AssociationField::new('conditionnement'),
-            AssociationField::new('saisons'),
-            TextField::new('remarques'),
-            AssociationField::new('user')->hideOnForm()
+            AssociationField::new('couleurFleur', new TranslatableMessage('Couleur'))->autocomplete(),
+            AssociationField::new('modeVente', new TranslatableMessage('Mode de vente')),
+            AssociationField::new('conditionnement', new TranslatableMessage('Vendu par ')),
+            AssociationField::new('saisons', new TranslatableMessage('Saisons')),
+            TextField::new('remarques', new TranslatableMessage('Variété préférée')),
+            // AssociationField::new('user')->hideOnForm()
             
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+        ->add(Crud::PAGE_INDEX, Action::DETAIL);
+        
     }
 
     

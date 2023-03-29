@@ -2,20 +2,21 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Composition;
 use App\Entity\Fleur;
 use App\Entity\Saison;
-use App\Entity\ModeVente;
-use App\Entity\TypeCompo;
-use App\Entity\CouleurFleur;
-use App\Entity\Conditionnement;
 use App\Entity\Evenement;
+use App\Entity\ModeVente;
 use App\Entity\Moodboard;
+use App\Entity\TypeCompo;
+use App\Entity\Composition;
 use App\Entity\Prestataire;
+use App\Entity\CouleurFleur;
 use App\Entity\TypeEvenement;
+use App\Entity\Conditionnement;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use App\Controller\Admin\EvenementCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -32,7 +33,7 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        $url = $this->adminUrlGenerator->setController(ConditionnementCrudController::class)
+        $url = $this->adminUrlGenerator->setController(EvenementCrudController::class)
                                        ->generateUrl();
         
         return $this->redirect($url);                               // return parent::index();

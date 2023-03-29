@@ -5,6 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\FleurCompo;
 use App\Entity\Composition;
 use App\Form\FleurCompoType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -29,6 +32,13 @@ class CompositionCrudController extends AbstractCrudController
             ->allowDelete(true)
             ->setEntryType(FleurCompoType::class)
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+        ->add(Crud::PAGE_INDEX, Action::DETAIL);
+        
     }
     
 }
