@@ -3,8 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Evenement;
+use App\Form\CompoEvenementType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class EvenementCrudController extends AbstractCrudController
@@ -27,6 +30,18 @@ class EvenementCrudController extends AbstractCrudController
             TextField::new('email'),
             TextField::new('horaire'),
             TextField::new('description'),
+            AssociationField::new('typeEvenement'),
+            AssociationField::new('prestataires'),
+            AssociationField::new('couleurs'),
+            CollectionField::new('compos')
+            ->allowAdd(true)
+            ->allowDelete(true)
+            ->setEntryType(CompoEvenementType::class)
+
+            // CollectionField::new('couleurs')
+            // ->allowAdd(true)
+            // ->allowDelete(true)
+            // ->setEntryType(MoodboardType::class),
 
         ];
     }

@@ -50,7 +50,7 @@ class Evenement
     #[ORM\ManyToMany(targetEntity: Moodboard::class, inversedBy: 'evenements')]
     private Collection $couleurs;
 
-    #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: CompoEvenement::class)]
+    #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: CompoEvenement::class, cascade:['persist', 'remove'])]
     private Collection $compos;
 
     public function __construct()
