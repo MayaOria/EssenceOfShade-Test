@@ -34,7 +34,7 @@ class FleurCrudController extends AbstractCrudController
                 ->setBasePath(self::FLEUR_BASE_PATH)
                 ->setUploadDir(self::FLEUR_UPLOAD_DIR)
                 ->setSortable(false),
-            AssociationField::new('couleurFleur'),
+            AssociationField::new('couleurFleur')->autocomplete(),
             AssociationField::new('modeVente'),
             AssociationField::new('conditionnement'),
             AssociationField::new('saisons'),

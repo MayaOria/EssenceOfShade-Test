@@ -48,9 +48,13 @@ class Fleur
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
+    #[ORM\OneToMany(mappedBy: 'fleur', targetEntity: FleurCompo::class)]
+    private Collection $fleursCompo;
+
     public function __construct()
     {
         $this->saisons = new ArrayCollection();
+        $this->fleursCompo = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,5 +183,40 @@ class Fleur
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, FleurCompo>
+     */
+    public function getFleursCompo(): Collection
+    {
+        return $this->fleursCompo;
+    }
+
+    public function addFleursCompo(FleurCompo $fleursCompo): self
+    {
+        if (!$this->fleursCompo->contains($fleursCompo)) {
+            $this->fleursCompo->add($fleursCompo);
+            $fleursCompo->setFleur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFleursCompo(FleurCompo $fleursCompo): self
+    {
+        if ($this->fleursCompo->removeElement($fleursCompo)) {
+            // set the owning side to null (unless already changed)
+            if ($fleursCompo->getFleur() === $this) {
+                $fleursCompo->setFleur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return "{$this->nom} - {$this->couleurFleur} - {$this->prix}€/p - (vendue par {$this->conditionnement})";
     }
 }

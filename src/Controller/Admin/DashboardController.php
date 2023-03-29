@@ -2,8 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Composition;
+use App\Entity\Fleur;
 use App\Entity\Saison;
 use App\Entity\ModeVente;
+use App\Entity\TypeCompo;
 use App\Entity\CouleurFleur;
 use App\Entity\Conditionnement;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +16,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use App\Entity\Fleur;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -66,11 +68,11 @@ class DashboardController extends AbstractDashboardController
         [MenuItem::linkToCrud('Ajouter un conditionnement', 'fas fa-plus', Conditionnement::class)->setAction(Crud::PAGE_NEW),
         MenuItem::linkToCrud('Listing', 'fas fa-eye', Conditionnement::class)]);
 
-        yield MenuItem::subMenu('Couleur', 'fas fa-list')->setSubItems(
+        yield MenuItem::subMenu('Couleurs', 'fas fa-list')->setSubItems(
         [MenuItem::linkToCrud('Ajouter une couleur', 'fas fa-plus', CouleurFleur::class)->setAction(Crud::PAGE_NEW),
         MenuItem::linkToCrud('Listing', 'fas fa-eye', CouleurFleur::class)]);
 
-        yield MenuItem::subMenu('Mode de vente', 'fas fa-list')->setSubItems(
+        yield MenuItem::subMenu('Modes de vente', 'fas fa-list')->setSubItems(
         [MenuItem::linkToCrud('Ajouter un mode de vente', 'fas fa-plus', ModeVente::class)->setAction(Crud::PAGE_NEW),
         MenuItem::linkToCrud('Listing', 'fas fa-eye', ModeVente::class)]);
 
@@ -79,6 +81,15 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Listing', 'fas fa-eye', Saison::class)]);
 
         yield MenuItem::section('COMPOSITIONS', 'fa-solid fa-book');
+        
+        yield MenuItem::subMenu('Compositions', 'fas fa-list')->setSubItems(
+            [MenuItem::linkToCrud('Ajouter une composition', 'fas fa-plus', Composition::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Listing', 'fas fa-eye', Composition::class)]);
+
+        yield MenuItem::subMenu('Types', 'fas fa-list')->setSubItems(
+            [MenuItem::linkToCrud('Ajouter un type', 'fas fa-plus', TypeCompo::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Listing', 'fas fa-eye', TypeCompo::class)]);
+
         yield MenuItem::section('ÉVÈNEMENTS', 'fa-solid fa-calendar');
         yield MenuItem::section('DEVIS', 'fa-solid fa-file');
 
