@@ -25,9 +25,13 @@ class Composition
     #[ORM\OneToMany(mappedBy: 'composition', targetEntity: FleurCompo::class, cascade:['persist', 'remove'])]
     private Collection $fleursCompo;
 
+    #[ORM\OneToMany(mappedBy: 'composition', targetEntity: CompoEvenement::class)]
+    private Collection $composEvenement;
+
     public function __construct()
     {
         $this->fleursCompo = new ArrayCollection();
+        $this->composEvenement = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,6 +87,36 @@ class Composition
             // set the owning side to null (unless already changed)
             if ($fleursCompo->getComposition() === $this) {
                 $fleursCompo->setComposition(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompoEvenement>
+     */
+    public function getComposEvenement(): Collection
+    {
+        return $this->composEvenement;
+    }
+
+    public function addComposEvenement(CompoEvenement $composEvenement): self
+    {
+        if (!$this->composEvenement->contains($composEvenement)) {
+            $this->composEvenement->add($composEvenement);
+            $composEvenement->setComposition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposEvenement(CompoEvenement $composEvenement): self
+    {
+        if ($this->composEvenement->removeElement($composEvenement)) {
+            // set the owning side to null (unless already changed)
+            if ($composEvenement->getComposition() === $this) {
+                $composEvenement->setComposition(null);
             }
         }
 

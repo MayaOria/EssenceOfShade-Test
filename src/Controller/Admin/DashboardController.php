@@ -9,6 +9,10 @@ use App\Entity\ModeVente;
 use App\Entity\TypeCompo;
 use App\Entity\CouleurFleur;
 use App\Entity\Conditionnement;
+use App\Entity\Evenement;
+use App\Entity\Moodboard;
+use App\Entity\Prestataire;
+use App\Entity\TypeEvenement;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -91,6 +95,23 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Listing', 'fas fa-eye', TypeCompo::class)]);
 
         yield MenuItem::section('ÉVÈNEMENTS', 'fa-solid fa-calendar');
+
+        yield MenuItem::subMenu('Évènements', 'fas fa-list')->setSubItems(
+            [MenuItem::linkToCrud('Ajouter un évènement', 'fas fa-plus', Evenement::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Listing', 'fas fa-eye', Evenement::class)]);
+
+        yield MenuItem::subMenu('Prestataires', 'fas fa-list')->setSubItems(
+            [MenuItem::linkToCrud('Ajouter un prestataire', 'fas fa-plus', Prestataire::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Listing', 'fas fa-eye', Prestataire::class)]);
+        
+        yield MenuItem::subMenu('Types', 'fas fa-list')->setSubItems(
+            [MenuItem::linkToCrud('Ajouter un type', 'fas fa-plus', TypeEvenement::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Listing', 'fas fa-eye', TypeEvenement::class)]);
+
+        yield MenuItem::subMenu('MoodBoard couleurs', 'fas fa-list')->setSubItems(
+            [MenuItem::linkToCrud('Ajouter une couleur', 'fas fa-plus', Moodboard::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Listing', 'fas fa-eye', Moodboard::class)]);
+
         yield MenuItem::section('DEVIS', 'fa-solid fa-file');
 
         
