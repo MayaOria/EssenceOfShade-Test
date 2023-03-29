@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\EvenementRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\FleurCompo;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: EvenementRepository::class)]
 class Evenement
@@ -249,5 +250,32 @@ class Evenement
         }
 
         return $this;
+    }
+
+    public function getDevis()
+    {
+        $res = [];
+
+        foreach($this->compos as $compo)
+        {
+            //pour retyper quand on perd l'autocomplétion
+            /** @var CompoEvenement $compo */
+            foreach($compo->getComposition()->getFleursCompo() as $fleurCompo){
+
+                $line = current(array_filter($res, function($item) use($fleurCompo) {
+                    return $item->getFleur() === $fleurCompo->getFleur();
+                }));
+                $quantity = $fleurCompo->getQuantite() * $compo->getQuantite();
+                if(!$line){
+                    $res[] = $fleurCompo->setQuantite($quantity);
+                }
+    
+                else {
+                    $line->setQuantite($line->getQuantite() + $quantity);
+                }
+            }
+        }
+
+        return $res;
     }
 }
