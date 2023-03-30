@@ -8,15 +8,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use Symfony\Component\Translation\TranslatableMessage;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\ComparisonType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-
+use EasyCorp\Bundle\EasyAdminBundle\Contracts\Filter\FilterInterface;
 
 class FleurCrudController extends AbstractCrudController
 {
@@ -51,10 +56,44 @@ class FleurCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-        ->add(Crud::PAGE_INDEX, Action::DETAIL);
+
+        ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
+            return $action->setIcon('fa fa-plus')->setLabel(false);
+        })
+        ->add(Crud::PAGE_INDEX , Action::DETAIL, 'détails');
         
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // ...
+            ->showEntityActionsInlined()
+        ;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return parent::configureFilters($filters)
+            ->add(EntityFilter::new('couleurFleur')->setFormTypeOptions([
+                'comparison_type' => HiddenType::class,
+                'comparison_type_options' => ['data' => ComparisonType::EQ],
+            ]))
+            ->add(EntityFilter::new('modeVente')->setFormTypeOptions([
+                'comparison_type' => HiddenType::class,
+                'comparison_type_options' => ['data' => ComparisonType::EQ],
+            ]))
+            ->add(EntityFilter::new('conditionnement')->setFormTypeOptions([
+                'comparison_type' => HiddenType::class,
+                'comparison_type_options' => ['data' => ComparisonType::EQ],
+            ]))
+            ->add(EntityFilter::new('saisons')->setFormTypeOptions([
+                'comparison_type' => HiddenType::class,
+                'comparison_type_options' => ['data' => ComparisonType::EQ],
+            ]))
+            ;
+        
+    }
     
     
 }
