@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FleurCompoRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FleurCompoRepository::class)]
@@ -23,6 +24,9 @@ class FleurCompo
     #[ORM\ManyToOne(inversedBy: 'fleursCompo')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Fleur $fleur = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
+    private ?string $prix = null;
 
     public function getId(): ?int
     {
@@ -61,6 +65,18 @@ class FleurCompo
     public function setFleur(?Fleur $fleur): self
     {
         $this->fleur = $fleur;
+
+        return $this;
+    }
+
+    public function getPrix(): ?string
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(string $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230329140809 extends AbstractMigration
+final class Version20230331085320 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -29,7 +29,7 @@ final class Version20230329140809 extends AbstractMigration
         $this->addSql('CREATE TABLE evenement_moodboard (evenement_id INT NOT NULL, moodboard_id INT NOT NULL, INDEX IDX_9C5F6181FD02F13 (evenement_id), INDEX IDX_9C5F6181ADA9CECE (moodboard_id), PRIMARY KEY(evenement_id, moodboard_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE fleur (id INT AUTO_INCREMENT NOT NULL, couleur_fleur_id INT NOT NULL, mode_vente_id INT NOT NULL, conditionnement_id INT NOT NULL, user_id INT DEFAULT NULL, nom VARCHAR(50) NOT NULL, prix NUMERIC(8, 2) NOT NULL, image VARCHAR(255) DEFAULT NULL, remarques LONGTEXT DEFAULT NULL, INDEX IDX_3FFA9231B7D7EB6 (couleur_fleur_id), INDEX IDX_3FFA9237EA06391 (mode_vente_id), INDEX IDX_3FFA923A222637 (conditionnement_id), INDEX IDX_3FFA923A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE fleur_saison (fleur_id INT NOT NULL, saison_id INT NOT NULL, INDEX IDX_21743940E8DD5A7 (fleur_id), INDEX IDX_21743940F965414C (saison_id), PRIMARY KEY(fleur_id, saison_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE fleur_compo (id INT AUTO_INCREMENT NOT NULL, composition_id INT NOT NULL, fleur_id INT NOT NULL, quantite INT NOT NULL, INDEX IDX_63BC9ED287A2E12 (composition_id), INDEX IDX_63BC9ED2E8DD5A7 (fleur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE fleur_compo (id INT AUTO_INCREMENT NOT NULL, composition_id INT NOT NULL, fleur_id INT NOT NULL, quantite INT NOT NULL, prix NUMERIC(8, 2) NOT NULL, INDEX IDX_63BC9ED287A2E12 (composition_id), INDEX IDX_63BC9ED2E8DD5A7 (fleur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE mode_vente (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE moodboard (id INT AUTO_INCREMENT NOT NULL, code_couleur VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE prestataire (id INT AUTO_INCREMENT NOT NULL, nom_societe VARCHAR(255) DEFAULT NULL, nom_contact VARCHAR(255) DEFAULT NULL, tva VARCHAR(255) DEFAULT NULL, telephone VARCHAR(255) DEFAULT NULL, email VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
