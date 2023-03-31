@@ -254,6 +254,8 @@ class Evenement
 
     public function getDevis()
     {
+
+
         $res = [];
 //pour chaque "CompoEvenement" d'un événement  
         foreach($this->compos as $compo)
@@ -262,6 +264,7 @@ class Evenement
             /** @var CompoEvenement $compo */
             //récupère les "FleurCompo" qui sont dans la composition de la "CompoEvenement"
             foreach($compo->getComposition()->getFleursCompo() as $fleurCompo){
+                //dd($fleurCompo);
                 //Vérifie si la fleur de la "fleurCompo" est déjà dans le tableau 
                 $line = current(array_filter($res, function($item) use($fleurCompo) {
                     return $item->getFleur() === $fleurCompo->getFleur();
@@ -276,7 +279,7 @@ class Evenement
     
                 else {
                     //sinon, on set la quantité
-                    $line->setQuantite($line->getQuantite() + $quantity);
+                    $line->setQuantite((int)$line->getQuantite() + (int)$quantity);
                 }
             }
         }

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DevisController!{% endblock %}
+{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+{% block body %}
+
+<table>
+<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>fleur</th>
+                <th>quantite</th>
+                <th>prix</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+
+        {%for item in devis %}
+            <tr>
+                <td>{{item.fleur.nom}}</td>
+                <td>{{item.quantite}}</td>
+                <td>{{item.prix}}</td>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+        
+    </table>
+
+{% endblock %}
+{% block Customjavascripts1 %}{{ encore_entry_script_tags ('datatable') }}{% endblock %}

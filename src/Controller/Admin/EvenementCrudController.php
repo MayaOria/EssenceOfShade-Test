@@ -19,6 +19,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class EvenementCrudController extends AbstractCrudController
 {
+    public const ACTION_DEVIS = 'genererDevis';
+
     public static function getEntityFqcn(): string
     {
         return Evenement::class;
@@ -55,10 +57,17 @@ class EvenementCrudController extends AbstractCrudController
     
     public function configureActions(Actions $actions): Actions
     {
+        $genererDevis = Action::new(self::ACTION_DEVIS, 'Générer un devis', 'fa fa-file-invoice')
+        ->linkToRoute('app_devis', function (Evenement $event): array
+        {
+            return ['id' => $event->getId()];
+        })
+        ->setCssClass('btn btn-info');
         return $actions
-        ->add(Crud::PAGE_INDEX, Action::DETAIL);
-        
+        ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ->add(Crud::PAGE_DETAIL, $genererDevis);
     }
+
 
     public function configureFilters(Filters $filters): Filters
     {
@@ -71,4 +80,39 @@ class EvenementCrudController extends AbstractCrudController
             ;
         
     }
+
+//     public function getDevis(): response
+//     {
+        
+
+//         $res = [];
+// //pour chaque "CompoEvenement" d'un événement  
+//         foreach($this->compos as $compo)
+//         {
+//             //pour retyper quand on perd l'autocomplétion
+//             /** @var CompoEvenement $compo */
+//             //récupère les "FleurCompo" qui sont dans la composition de la "CompoEvenement"
+//             foreach($compo->getComposition()->getFleursCompo() as $fleurCompo){
+//                 //Vérifie si la fleur de la "fleurCompo" est déjà dans le tableau 
+//                 $line = current(array_filter($res, function($item) use($fleurCompo) {
+//                     return $item->getFleur() === $fleurCompo->getFleur();
+//                 }));
+//                 //La quantité de la fleur sera la quantité necessaire dans la compo * le nombre de compo necessaire
+//                 $quantity = $fleurCompo->getQuantite() * $compo->getQuantite();
+//                 //Si la combinaison fleur n'est déjà dans le tableau
+//                 if(!$line){
+//                     //ajoute la combinaison et set la quantité
+//                     $res[] = $fleurCompo->setQuantite($quantity);
+//                 }
+    
+//                 else {
+//                     //sinon, on set la quantité
+//                     $line->setQuantite($line->getQuantite() + $quantity);
+//                 }
+//             }
+//         }
+
+//         // dd($res);
+//         return $res;
+//     }
 }

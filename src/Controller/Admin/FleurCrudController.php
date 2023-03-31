@@ -25,6 +25,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Contracts\Filter\FilterInterface;
 
 class FleurCrudController extends AbstractCrudController
 {
+    
     public const FLEUR_BASE_PATH = 'upload/images/fleurs';
     public const FLEUR_UPLOAD_DIR = 'public/upload/images/fleurs';
     public static function getEntityFqcn(): string
@@ -55,12 +56,16 @@ class FleurCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        
+        
+
         return $actions
 
         ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
             return $action->setIcon('fa fa-plus')->setLabel(false);
         })
         ->add(Crud::PAGE_INDEX , Action::DETAIL, 'détails');
+        
         
     }
 
