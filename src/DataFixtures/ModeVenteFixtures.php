@@ -14,7 +14,7 @@ class ModeVenteFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $modeVente1 = new ModeVente();
-        $modeVente1->setNom("Tigée");
+        $modeVente1->setNom("Tige");
         $manager->persist($modeVente1);
         $modeVente2 = new ModeVente();
         $modeVente2->setNom("Botte");

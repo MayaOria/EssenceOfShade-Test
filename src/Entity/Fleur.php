@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FleurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,8 +21,8 @@ class Fleur
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
-    private ?string $prix = null;
+    #[ORM\Column(type: Types::FLOAT)]
+    private ?float $prix = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
@@ -79,7 +80,7 @@ class Fleur
         return $this->prix;
     }
 
-    public function setPrix(string $prix): self
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
 

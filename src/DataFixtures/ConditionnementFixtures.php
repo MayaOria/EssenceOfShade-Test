@@ -23,13 +23,13 @@ class ConditionnementFixtures extends Fixture
         $conditionnement3->setNombre(10);
         $manager->persist($conditionnement3);
         $conditionnement4 = new Conditionnement();
-        $conditionnement4->setNombre(15);
+        $conditionnement4->setNombre(20);
         $manager->persist($conditionnement4);
         $conditionnement5 = new Conditionnement();
-        $conditionnement5->setNombre(20);
+        $conditionnement5->setNombre(25);
         $manager->persist($conditionnement5);
         $conditionnement6 = new Conditionnement();
-        $conditionnement6->setNombre(25);
+        $conditionnement6->setNombre(30);
         $manager->persist($conditionnement6);
         $conditionnement7 = new Conditionnement();
         $conditionnement7->setNombre(50);

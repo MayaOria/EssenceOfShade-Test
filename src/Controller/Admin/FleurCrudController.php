@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use Symfony\Component\Translation\TranslatableMessage;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
@@ -20,8 +21,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\ComparisonType;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Filter\FilterInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class FleurCrudController extends AbstractCrudController
 {
@@ -39,7 +40,7 @@ class FleurCrudController extends AbstractCrudController
         return [
             // IdField::new('id')->hideOnForm(),
             TextField::new('nom'),
-            MoneyField::new('prix')->setCurrency('EUR'),
+           NumberField::new('prix'),
             ImageField::new('image')
                 ->setBasePath(self::FLEUR_BASE_PATH)
                 ->setUploadDir(self::FLEUR_UPLOAD_DIR)

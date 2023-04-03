@@ -34,11 +34,11 @@ class FleurFixtures extends Fixture implements DependentFixtureInterface
             $conditionnementChoisi = $conditionnements[rand(0, count($conditionnements)-1)];
             $modeVenteChoisi = $modesVente[rand(0, count($modesVente)-1)];
             $userChoisi = $users[rand(0, count($users)-1)];
-
+            
 
             $fleur = new Fleur();
             $fleur->setNom("fleur".$i);
-            $fleur->setPrix(10,00);
+            $fleur->setPrix(0.10);
             $fleur->setImage("images/fleur".$i.".png");
             $fleur->setRemarques("remarque n° ".$i);
 

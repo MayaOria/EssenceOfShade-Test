@@ -29,6 +29,7 @@ class CompositionSubscriber implements EventSubscriberInterface
 
             foreach ($entity->getFleursCompo() as $fleurCompo) {
                 $prix = $fleurCompo->getFleur()->getPrix();
+                dd($prix);
 
                 $fleurCompo->setPrix($prix);
             }
