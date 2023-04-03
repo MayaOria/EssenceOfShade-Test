@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DevisController!{% endblock %}
-{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
+{% block title %}Devis client{% endblock %}
+
 {% block body %}
 <h2>Devis {{evenement.nom}}</h2>
 
@@ -108,4 +106,18 @@
     </table> 
 
 {% endblock %}
-{% block Customjavascripts1 %}{{ encore_entry_script_tags ('datatable') }}{% endblock %}
+
+{% block javascript %}
+
+    <script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script
+
+{% endblock %}

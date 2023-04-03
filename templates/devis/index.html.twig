@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DevisController!{% endblock %}
-{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
+{% block title %}Shopping{% endblock %}
+
 {% block body %}
 
 <table>
@@ -46,10 +44,10 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td>TOTAL PRIX FLEURS : </td>
+                <td></td>
                 <td>{{totalFleurs}} € </td>
                 <td></td>
-                <td>TOTAL PRIX Packs : </td>
+                <td></td>
                 <td>{{totalPack}} € </td>
                 <td></td>
                 <td>{{totalPack - totalFleurs}}</td>
@@ -60,4 +58,17 @@
     </table>
 
 {% endblock %}
-{% block Customjavascripts1 %}{{ encore_entry_script_tags ('datatable') }}{% endblock %}
+
+
+{% block javascript %}
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>
+{% endblock %}
