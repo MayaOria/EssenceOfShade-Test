@@ -19,7 +19,7 @@ class DevisController extends AbstractController
         $devis = $evenement->getDevis();
         $vars = ['devis' => $devis];
         // dd($devis);
-        return $this->render('devis/index.html.twig', $vars);
+        return $this->render('devis/shopping_liste.html.twig', $vars);
     }
 
     #[Route('/devis/client', name: 'app_devis_client')]
