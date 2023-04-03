@@ -41,7 +41,7 @@
 
 <h3>Compositions : </h3>
 
-<table>
+
 <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
@@ -74,12 +74,8 @@
                 {% set prixTotalHTVA = prixTotalHTVA + prixTotal * item.quantite %}
         {% endfor %}
 
-<tr>
-                <td></td>
-                <td></td>
-                <td></td>                              
-                <td></td> 
-                </tr>
+</tr>
+                
 
                 <tr>
                 <td></td>
@@ -101,6 +97,8 @@
                 <td>TOTAL TVAC : </td>                              
                 <td>{{prixTotalHTVA * 1.06}}</td> 
                 </tr>
+
+                
         </tbody>
         
     </table> 

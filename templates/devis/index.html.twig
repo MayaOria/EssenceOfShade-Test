@@ -40,18 +40,19 @@
         {% set totalFleurs = totalFleurs + item.quantite * item.prix %}
         {% set totalPack = totalPack + item.fleur.conditionnement.nombre * item.nbPack * item.prix %}
         {% endfor %}
-
+        
+        
             <tr>
                 <td></td>
                 <td></td>
-                <td></td>
+                <td>TOTAL PRIX FLEURS : </td>
                 <td>{{totalFleurs}} € </td>
                 <td></td>
-                <td></td>
+                <td>TOTAL PRIX Packs : </td>
                 <td>{{totalPack}} € </td>
                 <td></td>
-                <td>{{totalPack - totalFleurs}}</td>
-
+                <td>{{totalPack - totalFleurs}} €</td>
+        
 
         </tbody>
         
