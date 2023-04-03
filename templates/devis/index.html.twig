@@ -10,23 +10,49 @@
 <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
-                <th>fleur</th>
                 <th>quantite</th>
-                <th>prix</th>
+                <th>fleur</th>
+                <th>prix Unitaire</th>
+                <th>prix total fleur</th>
+                <th>Vendues par</th>
+                <th>Nombre packs</th>
+                <th>prix total packs</th>
+                <th>reste</th>
+                <th>différence total fleur/total packs</th>
+
+
                 
             </tr>
         </thead>
         <tbody>
-
+        {% set totalFleurs = 0 %}
+        {% set totalPack = 0 %}
         {%for item in devis %}
             <tr>
-                <td>{{item.fleur.nom}}</td>
                 <td>{{item.quantite}}</td>
+                <td>{{item.fleur.nom}}</td>
                 <td>{{item.prix}}</td>
+                <td>{{item.quantite * item.prix}} €</td>
                 <td>{{item.fleur.conditionnement.nombre}}</td>
-
+                <td>{{item.nbPack}}</td>
+                <td>{{item.fleur.conditionnement.nombre * item.nbPack * item.prix}} €</td>
+                <td>{{item.fleur.conditionnement.nombre * item.nbPack - item.quantite}}</td>
+                <td>{{(item.fleur.conditionnement.nombre * item.nbPack - item.quantite) * item.prix}}</td>
             </tr>
+        {% set totalFleurs = totalFleurs + item.quantite * item.prix %}
+        {% set totalPack = totalPack + item.fleur.conditionnement.nombre * item.nbPack * item.prix %}
         {% endfor %}
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td>TOTAL PRIX FLEURS : </td>
+                <td>{{totalFleurs}} € </td>
+                <td></td>
+                <td>TOTAL PRIX Packs : </td>
+                <td>{{totalPack}} € </td>
+                <td></td>
+                <td>{{totalPack - totalFleurs}}</td>
 
 
         </tbody>

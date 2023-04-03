@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DevisController!{% endblock %}
+{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+{% block body %}
+<h2>Devis {{evenement.nom}}</h2>
+
+<h3>Informations générales : </h3>
+{% if evenement.DateEvenement %}
+<p>Date de l'événement : {{evenement.DateEvenement|date('d-m-Y')}}</p>
+{% endif %}
+{% if evenement.Lieu %}
+<p>Lieu : {{evenement.Lieu}}</p>
+{% endif %}
+{% if evenement.PersoContact %}
+<p>Personne de contact : {{evenement.PersoContact}}</p>
+{% endif %}
+{% if evenement.Email %}
+<p>Email : {{evenement.Email}}</p>
+{% endif %}
+{% if evenement.Horaire %}
+<p>Horaires : {{evenement.Horaire}}</p>
+{% endif %}
+{% if evenement.Description %}
+<p>Description : {{evenement.Description}}</p>
+{% endif %}
+{% if evenement.Couleurs %}
+    <ul>
+        {% for couleur in evenement.Couleurs %}
+            <li>{{ couleur.nom }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if evenement.Prestataires %}
+    <ul>
+        {% for presta in evenement.Prestataires %}
+            <li>{{ presta.NomContact }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<h3>Compositions : </h3>
+
+<table>
+<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Quantité</th>
+                <th>Nom</th>
+                <th>Prix HTVA par composition (marge x 3 incluse)</th>                              
+                <th>Prix total HTVA</th>                              
+                                              
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% set prixTotalHTVA = 0 %}
+        {%for item in devis %}
+            <tr>
+                <td>{{item.quantite}}</td>
+                <td>{{item.composition.nom}}</td>
+                    {% set qteFleur = 0 %}
+                    {% set prixFleur = 0 %}
+                    {% set prixTotal = 0 %}
+                    {%for compo in item.composition.fleursCompo %}
+
+                    {% set qteFleur = compo.quantite %}
+                    {% set prixFleur = compo.prix * 3 %}
+                    {% set prixTotal = prixTotal + (qteFleur * prixFleur) %}
+
+                    {% endfor %}
+                <td>{{prixTotal}}</td>
+                <td>{{prixTotal * item.quantite}}</td>
+                {% set prixTotalHTVA = prixTotalHTVA + prixTotal * item.quantite %}
+        {% endfor %}
+
+<tr>
+                <td></td>
+                <td></td>
+                <td></td>                              
+                <td></td> 
+                </tr>
+
+                <tr>
+                <td></td>
+                <td></td>
+                <td>TOTAL HTVA : </td>                              
+                <td>{{prixTotalHTVA}}</td> 
+                </tr>
+
+                <tr>
+                <td></td>
+                <td></td>
+                <td>TVA 6% : </td>                              
+                <td>{{(prixTotalHTVA * 1.06) - prixTotalHTVA}}</td> 
+                </tr>
+
+                <tr>
+                <td></td>
+                <td></td>
+                <td>TOTAL TVAC : </td>                              
+                <td>{{prixTotalHTVA * 1.06}}</td> 
+                </tr>
+        </tbody>
+        
+    </table> 
+
+{% endblock %}
+{% block Customjavascripts1 %}{{ encore_entry_script_tags ('datatable') }}{% endblock %}

@@ -284,7 +284,23 @@ class Evenement
             }
         }
 
+       foreach($res as $line){
+        $line->setNbPack(1);
+          /** @var FleurCompo $line */
+        $conditionnement = $line->getFleur()->getConditionnement()->getNombre();
+        $totalConditionnement = $conditionnement;
+        while($line->getQuantite() > $totalConditionnement){
+            $line->setNbPack($line->getNbPack() + 1);
+            $totalConditionnement = $conditionnement * $line->getNbPack();
+        }
+       }
+
         // dd($res);
+        return $res;
+    }
+
+    public function getDevisClient(){
+        $res = $this->compos;
         return $res;
     }
 }

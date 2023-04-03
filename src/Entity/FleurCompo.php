@@ -28,6 +28,9 @@ class FleurCompo
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $prix = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $nbPack = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +80,18 @@ class FleurCompo
     public function setPrix(string $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getNbPack(): ?int
+    {
+        return $this->nbPack;
+    }
+
+    public function setNbPack(?int $nbPack): self
+    {
+        $this->nbPack = $nbPack;
 
         return $this;
     }

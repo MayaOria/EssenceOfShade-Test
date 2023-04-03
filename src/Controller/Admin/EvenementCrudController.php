@@ -20,6 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 class EvenementCrudController extends AbstractCrudController
 {
     public const ACTION_DEVIS = 'genererDevis';
+    public const ACTION_CLIENT = 'genererDevisClient';
 
     public static function getEntityFqcn(): string
     {
@@ -57,15 +58,25 @@ class EvenementCrudController extends AbstractCrudController
     
     public function configureActions(Actions $actions): Actions
     {
-        $genererDevis = Action::new(self::ACTION_DEVIS, 'Générer un devis', 'fa fa-file-invoice')
+        $genererDevis = Action::new(self::ACTION_DEVIS, 'Shopping liste', 'fa fa-file-cart')
         ->linkToRoute('app_devis', function (Evenement $event): array
         {
             return ['id' => $event->getId()];
         })
         ->setCssClass('btn btn-info');
+
+        $genererDevisClient = Action::new(self::ACTION_CLIENT, 'Devis client', 'fa fa-file-invoice')
+        ->linkToRoute('app_devis_client', function (Evenement $event): array
+        {
+            return ['id' => $event->getId()];
+        })
+        ->setCssClass('btn btn-info');
+        
         return $actions
         ->add(Crud::PAGE_INDEX, Action::DETAIL)
-        ->add(Crud::PAGE_DETAIL, $genererDevis);
+        ->add(Crud::PAGE_DETAIL, $genererDevis)
+        ->add(Crud::PAGE_DETAIL, $genererDevisClient);
+
     }
 
 
