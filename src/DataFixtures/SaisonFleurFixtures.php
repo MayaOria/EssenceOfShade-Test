@@ -19,22 +19,22 @@ class SaisonFleurFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         
-        $rep = $manager->getRepository(Fleur::class);
-        $fleurs = $rep->findAll();
-        $rep = $manager->getRepository(Saison::class);
-        $saisons = $rep->findAll();
+        // $rep = $manager->getRepository(Fleur::class);
+        // $fleurs = $rep->findAll();
+        // $rep = $manager->getRepository(Saison::class);
+        // $saisons = $rep->findAll();
         
 
-        foreach ($fleurs as $fleur)
-        {
-            for($i = 0; $i < rand(1, 4); $i++)
-            {
-                $fleur->addSaison($saisons[rand(0, count($saisons)-1)]);
-            }
-            $manager->persist($fleur);
-        }
+        // foreach ($fleurs as $fleur)
+        // {
+        //     for($i = 0; $i < rand(1, 4); $i++)
+        //     {
+        //         $fleur->addSaison($saisons[rand(0, count($saisons)-1)]);
+        //     }
+        //     $manager->persist($fleur);
+        // }
 
-        $manager->flush();
+        // $manager->flush();
         }      
 
     public function getDependencies()

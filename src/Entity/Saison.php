@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\SaisonRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\SaisonFleur;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SaisonRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: SaisonRepository::class)]
 class Saison
@@ -18,7 +19,7 @@ class Saison
     #[ORM\Column(length: 50)]
     private ?string $mois = null;
 
-    #[ORM\ManyToMany(targetEntity: Fleur::class, mappedBy: 'saisons', orphanRemoval: false, cascade:['persist','remove'])]
+    #[ORM\OneToMany(mappedBy: 'saison', targetEntity: SaisonFleur::class)]
     private Collection $fleurs;
 
     public function __construct()
@@ -51,7 +52,7 @@ class Saison
         return $this->fleurs;
     }
 
-    public function addFleur(Fleur $fleur): self
+    public function addFleur(SaisonFleur $fleur): self
     {
         if (!$this->fleurs->contains($fleur)) {
             $this->fleurs->add($fleur);
@@ -60,7 +61,7 @@ class Saison
         return $this;
     }
 
-    public function removeFleur(Fleur $fleur): self
+    public function removeFleur(SaisonFleur $fleur): self
     {
         $this->fleurs->removeElement($fleur);
 

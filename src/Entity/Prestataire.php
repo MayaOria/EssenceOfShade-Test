@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PrestataireRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\PrestaEvenement;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PrestataireRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PrestataireRepository::class)]
 class Prestataire
@@ -30,7 +31,7 @@ class Prestataire
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
-    #[ORM\ManyToMany(targetEntity: Evenement::class, mappedBy: 'prestataires')]
+    #[ORM\OneToMany(mappedBy: 'prestataire', targetEntity: PrestaEvenement::class )]
     private Collection $evenements;
 
     public function __construct()
@@ -111,21 +112,21 @@ class Prestataire
         return $this->evenements;
     }
 
-    public function addEvenement(Evenement $evenement): self
+    public function addEvenement(PrestaEvenement $evenement): self
     {
         if (!$this->evenements->contains($evenement)) {
             $this->evenements->add($evenement);
-            $evenement->addPrestataire($this);
+            
         }
 
         return $this;
     }
 
-    public function removeEvenement(Evenement $evenement): self
+    public function removeEvenement(PrestaEvenement $evenement): self
     {
-        if ($this->evenements->removeElement($evenement)) {
-            $evenement->removePrestataire($this);
-        }
+        $this->evenements->removeElement($evenement);
+            
+        
 
         return $this;
     }

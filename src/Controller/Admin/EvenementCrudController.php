@@ -4,20 +4,21 @@ namespace App\Controller\Admin;
 
 use App\Entity\Evenement;
 use App\Form\CompoEvenementType;
+use App\Form\PrestaEvenementType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\ComparisonType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 class EvenementCrudController extends AbstractCrudController
 {
@@ -43,7 +44,10 @@ class EvenementCrudController extends AbstractCrudController
             TextField::new('horaire', 'Horaires'),
             TextField::new('description', 'Remarques'),
             AssociationField::new('typeEvenement', 'Type'),
-            AssociationField::new('prestataires', 'Prestataires'),
+            CollectionField::new('prestataires', 'Prestataires')
+            ->allowAdd(true)
+            ->allowDelete(true)
+            ->setEntryType(PrestaEvenementType::class),
             AssociationField::new('couleurs', 'Moodboard'),
             CollectionField::new('compos', 'Compositions')
             ->allowAdd(true)

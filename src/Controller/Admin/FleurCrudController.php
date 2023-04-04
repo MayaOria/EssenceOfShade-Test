@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Fleur;
+use App\Form\SaisonFleurType;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -17,6 +18,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -48,8 +50,11 @@ class FleurCrudController extends AbstractCrudController
             AssociationField::new('couleurFleur', new TranslatableMessage('Couleur'))->autocomplete(),
             AssociationField::new('modeVente', new TranslatableMessage('Mode de vente')),
             AssociationField::new('conditionnement', new TranslatableMessage('Vendu par ')),
-            AssociationField::new('saisons', new TranslatableMessage('Saisons')),
             TextField::new('remarques', new TranslatableMessage('Variété préférée')),
+            CollectionField::new('saisons', 'Saisons')
+            ->allowAdd(true)
+            ->allowDelete(true)
+            ->setEntryType(SaisonFleurType::class)
             // AssociationField::new('user')->hideOnForm()
             
         ];
@@ -65,7 +70,7 @@ class FleurCrudController extends AbstractCrudController
         ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
             return $action->setIcon('fa fa-plus')->setLabel(false);
         })
-        ->add(Crud::PAGE_INDEX , Action::DETAIL, 'détails');
+        ;
         
         
     }

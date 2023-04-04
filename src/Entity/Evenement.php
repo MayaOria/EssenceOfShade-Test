@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\FleurCompo;
 use Doctrine\DBAL\Types\Types;
+use App\Entity\PrestaEvenement;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EvenementRepository;
 use Doctrine\Common\Collections\Collection;
@@ -45,7 +46,7 @@ class Evenement
     #[ORM\JoinColumn(nullable: false)]
     private ?TypeEvenement $typeEvenement = null;
 
-    #[ORM\ManyToMany(targetEntity: Prestataire::class, inversedBy: 'evenements')]
+    #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: PrestaEvenement::class, cascade:['persist', 'remove'])]
     private Collection $prestataires;
 
     #[ORM\ManyToMany(targetEntity: Moodboard::class, inversedBy: 'evenements')]
@@ -182,18 +183,23 @@ class Evenement
         return $this->prestataires;
     }
 
-    public function addPrestataire(Prestataire $prestataire): self
+    public function addPrestataire(PrestaEvenement $prestataire): self
     {
         if (!$this->prestataires->contains($prestataire)) {
             $this->prestataires->add($prestataire);
+            $prestataire->setEvenement($this);
         }
 
         return $this;
     }
 
-    public function removePrestataire(Prestataire $prestataire): self
+    public function removePrestataire(PrestaEvenement $prestataire): self
     {
-        $this->prestataires->removeElement($prestataire);
+        if($this->prestataires->removeElement($prestataire)){
+            if($prestataire->getEvenement()=== $this){
+                $prestataire->setEvenement(null);
+            }
+        };
 
         return $this;
     }

@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\FleurRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
+use App\Entity\SaisonFleur;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
+use App\Repository\FleurRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 #[ORM\Entity(repositoryClass: FleurRepository::class)]
@@ -42,7 +43,7 @@ class Fleur
     #[ORM\JoinColumn(nullable: false)]
     private ?Conditionnement $conditionnement = null;
 
-    #[ORM\ManyToMany(targetEntity: Saison::class, inversedBy: 'fleurs', orphanRemoval: false, cascade:['persist'])]
+    #[ORM\OneToMany(mappedBy:'fleur', targetEntity: SaisonFleur::class, cascade:['persist', 'remove'])]
     private Collection $saisons;
 
     #[ORM\ManyToOne(inversedBy: 'fleurs')]
@@ -155,20 +156,22 @@ class Fleur
         return $this->saisons;
     }
 
-    public function addSaison(Saison $saison): self
+    public function addSaison(SaisonFleur $saison): self
     {
         if (!$this->saisons->contains($saison)) {
             $this->saisons->add($saison);
-            $saison->addFleur($this);
+            $saison->setFleur($this);
         }
 
         return $this;
     }
 
-    public function removeSaison(Saison $saison): self
+    public function removeSaison(SaisonFleur $saison): self
     {
         if ($this->saisons->removeElement($saison)) {
-            $saison->removeFleur($this);
+            if ($saison->getFleur() === $this) {
+                $saison->setFleur(null);
+            }
         }
 
         return $this;
