@@ -35,17 +35,17 @@ class EvenementCrudController extends AbstractCrudController
         return [
             // IdField::new('id'),
             TextField::new('nom', 'Nom'),
-            DateField::new('dateEvenement'),
-            TextField::new('lieu'),
-            TextField::new('persoContact'),
-            TextField::new('telephone'),
-            TextField::new('email'),
-            TextField::new('horaire'),
-            TextField::new('description'),
-            AssociationField::new('typeEvenement'),
-            AssociationField::new('prestataires'),
-            AssociationField::new('couleurs'),
-            CollectionField::new('compos')
+            DateField::new('dateEvenement', 'Date'),
+            TextField::new('lieu', 'Adresse/lieu'),
+            TextField::new('persoContact', 'Contact'),
+            TextField::new('telephone', 'Téléphone'),
+            TextField::new('email', 'Email'),
+            TextField::new('horaire', 'Horaires'),
+            TextField::new('description', 'Remarques'),
+            AssociationField::new('typeEvenement', 'Type'),
+            AssociationField::new('prestataires', 'Prestataires'),
+            AssociationField::new('couleurs', 'Moodboard'),
+            CollectionField::new('compos', 'Compositions')
             ->allowAdd(true)
             ->allowDelete(true)
             ->setEntryType(CompoEvenementType::class)
@@ -92,6 +92,14 @@ class EvenementCrudController extends AbstractCrudController
             
             ;
         
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // ...
+            ->showEntityActionsInlined()
+        ;
     }
 
 //     public function getDevis(): response

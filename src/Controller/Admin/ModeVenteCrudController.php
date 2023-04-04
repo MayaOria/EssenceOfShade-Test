@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\ModeVente;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ModeVenteCrudController extends AbstractCrudController
@@ -12,14 +14,22 @@ class ModeVenteCrudController extends AbstractCrudController
         return ModeVente::class;
     }
 
-    /*
+    
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            
+            TextField::new('nom', 'Mode de vente'),
+            
         ];
     }
-    */
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // ...
+            ->showEntityActionsInlined()
+        ;
+    }
+    
 }

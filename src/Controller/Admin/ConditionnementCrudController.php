@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Conditionnement;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ConditionnementCrudController extends AbstractCrudController
@@ -12,14 +14,20 @@ class ConditionnementCrudController extends AbstractCrudController
         return Conditionnement::class;
     }
 
-    /*
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // ...
+            ->showEntityActionsInlined()
+        ;
+    }
+    
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            NumberField::new('nombre', 'Conditionnement'),
+            
         ];
     }
-    */
+    
 }

@@ -24,6 +24,13 @@ class CompositionCrudController extends AbstractCrudController
         return Composition::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // ...
+            ->showEntityActionsInlined()
+        ;
+    }
     
     public function configureFields(string $pageName): iterable
     {
