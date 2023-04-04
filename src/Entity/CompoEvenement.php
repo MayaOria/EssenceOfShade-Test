@@ -64,4 +64,9 @@ class CompoEvenement
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->composition->getNom();
+    }
 }
