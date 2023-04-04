@@ -1,15 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Essence Of Shade{% endblock %}
 
 {% block body %}
-<h2>Bienvenue {{app.user.nom}}</h2>
+<h2>Hello ! </h2>
 
-<div>
+{% if user %}
+   <div>
     <a href = "{{path('app_logout')}}">Se déconnecter</a>
 </div>
 <div>
     <a href = "{{path('app_fleur')}}">Liste des fleurs</a>
 </div>
 
+{% else %}
+   <div>
+    <a href = "{{path('app_login')}}">Se connecter</a>
+</div>
+{% endif %}
+
+
+{% endblock %}
+
+
+{% block stylesheets %}
+    {# au cas ou base a déjà quelque chose #}
+    {{ parent() }} 
+    {{ encore_entry_link_tags('app') }}
 {% endblock %}

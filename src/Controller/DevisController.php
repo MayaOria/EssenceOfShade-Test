@@ -47,21 +47,22 @@ class DevisController extends AbstractController
 
     public function telechargerDevis(Devis $devis, DevisRepository $repo): BinaryFileResponse
 {
-    
+    $publicPath = __DIR__.'/../../public';
     $id = $devis->getId();
         $devis = $repo->find($id);
         $document = $devis->getDocument();
         $nom = $devis->getEvenement();
+    
     // load the file from the filesystem
-    $file = new File('C:\xampp\htdocs\repo\Symfony_Projet\ProjetEssenceBeta\public\upload\images\devis\Convention_de_stage - Orianne Maya.pdf');
+    $file = new File($publicPath.'/upload/images/devis/'.$document);
 
     return $this->file($file);
 
     // rename the downloaded file
-    return $this->file($file, 'devis.pdf');
+    // return $this->file($file, 'devis.pdf');
 
-    // display the file contents in the browser instead of downloading it
-    return $this->file('devis.pdf', 'devis.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
+    // // display the file contents in the browser instead of downloading it
+    // return $this->file('devis.pdf', 'devis.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
 }
 
 public function download(): BinaryFileResponse

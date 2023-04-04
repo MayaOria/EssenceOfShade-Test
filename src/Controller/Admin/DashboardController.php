@@ -34,6 +34,12 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        $user = $this->getUser();
+        if(!$user){
+            return $this->redirectToRoute('app_login');
+        }
+
+
         $url = $this->adminUrlGenerator->setController(EvenementCrudController::class)
                                        ->generateUrl();
         
