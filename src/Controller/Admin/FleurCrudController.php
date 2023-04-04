@@ -46,7 +46,8 @@ class FleurCrudController extends AbstractCrudController
             ImageField::new('image')
                 ->setBasePath(self::FLEUR_BASE_PATH)
                 ->setUploadDir(self::FLEUR_UPLOAD_DIR)
-                ->setSortable(false),
+                ->setSortable(false)
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
             AssociationField::new('couleurFleur', new TranslatableMessage('Couleur'))->autocomplete(),
             AssociationField::new('modeVente', new TranslatableMessage('Mode de vente')),
             AssociationField::new('conditionnement', new TranslatableMessage('Vendu par ')),

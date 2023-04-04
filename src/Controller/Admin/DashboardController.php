@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use App\Controller\Admin\EvenementCrudController;
+use App\Entity\Devis;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -109,11 +110,13 @@ class DashboardController extends AbstractDashboardController
             [MenuItem::linkToCrud('Ajouter un type', 'fas fa-plus', TypeEvenement::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Listing', 'fas fa-eye', TypeEvenement::class)]);
 
-        yield MenuItem::subMenu('MoodBoard couleurs', 'fas fa-list')->setSubItems(
-            [MenuItem::linkToCrud('Ajouter une couleur', 'fas fa-plus', Moodboard::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Listing', 'fas fa-eye', Moodboard::class)]);
-
         yield MenuItem::section('DEVIS', 'fa-solid fa-file');
+            
+        yield MenuItem::subMenu('devis', 'fas fa-list')->setSubItems(
+            [MenuItem::linkToCrud('Ajouter un devis', 'fas fa-plus', Devis::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Listing', 'fas fa-eye', Devis::class)]);
+
+        
 
         
 

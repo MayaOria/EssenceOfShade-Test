@@ -37,18 +37,19 @@ class EvenementCrudController extends AbstractCrudController
             // IdField::new('id'),
             TextField::new('nom', 'Nom'),
             DateField::new('dateEvenement', 'Date'),
-            TextField::new('lieu', 'Adresse/lieu'),
-            TextField::new('persoContact', 'Contact'),
-            TextField::new('telephone', 'Téléphone'),
-            TextField::new('email', 'Email'),
-            TextField::new('horaire', 'Horaires'),
+            TextField::new('lieu', 'Adresse/lieu')->hideOnIndex(),
+            TextField::new('persoContact', 'Contact')->hideOnIndex(),
+            TextField::new('telephone', 'Téléphone')->hideOnIndex(),
+            TextField::new('email', 'Email')->hideOnIndex(),
+            TextField::new('horaire', 'Horaires')->hideOnIndex(),
+            TextField::new('couleurs', 'Couleurs du moodboard'),
             TextField::new('description', 'Remarques'),
             AssociationField::new('typeEvenement', 'Type'),
             CollectionField::new('prestataires', 'Prestataires')
             ->allowAdd(true)
             ->allowDelete(true)
-            ->setEntryType(PrestaEvenementType::class),
-            AssociationField::new('couleurs', 'Moodboard'),
+            ->setEntryType(PrestaEvenementType::class)
+            ->hideOnIndex(),
             CollectionField::new('compos', 'Compositions')
             ->allowAdd(true)
             ->allowDelete(true)

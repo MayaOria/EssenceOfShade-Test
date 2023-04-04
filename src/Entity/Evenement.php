@@ -49,16 +49,16 @@ class Evenement
     #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: PrestaEvenement::class, cascade:['persist', 'remove'])]
     private Collection $prestataires;
 
-    #[ORM\ManyToMany(targetEntity: Moodboard::class, inversedBy: 'evenements')]
-    private Collection $couleurs;
 
     #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: CompoEvenement::class, cascade:['persist', 'remove'])]
     private Collection $compos;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $couleurs = null;
+
     public function __construct()
     {
         $this->prestataires = new ArrayCollection();
-        $this->couleurs = new ArrayCollection();
         $this->compos = new ArrayCollection();
     }
 
@@ -204,29 +204,6 @@ class Evenement
         return $this;
     }
 
-    /**
-     * @return Collection<int, Moodboard>
-     */
-    public function getCouleurs(): Collection
-    {
-        return $this->couleurs;
-    }
-
-    public function addCouleur(Moodboard $couleur): self
-    {
-        if (!$this->couleurs->contains($couleur)) {
-            $this->couleurs->add($couleur);
-        }
-
-        return $this;
-    }
-
-    public function removeCouleur(Moodboard $couleur): self
-    {
-        $this->couleurs->removeElement($couleur);
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, CompoEvenement>
@@ -308,6 +285,18 @@ class Evenement
     public function getDevisClient(){
         $res = $this->compos;
         return $res;
+    }
+
+    public function getCouleurs(): ?string
+    {
+        return $this->couleurs;
+    }
+
+    public function setCouleurs(?string $couleurs): self
+    {
+        $this->couleurs = $couleurs;
+
+        return $this;
     }
 
    
