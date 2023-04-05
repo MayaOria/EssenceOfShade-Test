@@ -42,6 +42,7 @@ class CouleurFleurFixtures extends Fixture
         $manager->persist($couleur9);
         $couleur10 = new CouleurFleur();
         $couleur10->setNom("Jaune");
+        $manager->persist($couleur10);
         $couleur11 = new CouleurFleur();
         $couleur11->setNom("Jaune pâle");
         $manager->persist($couleur11);
