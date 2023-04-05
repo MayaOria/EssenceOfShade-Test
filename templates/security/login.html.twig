@@ -3,21 +3,26 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+
+<div class="box">
+
+
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        <div class="mg-top">
+            You are logged in as {{ app.user.userIdentifier }} <a class="btn" href="{{ path('app_logout') }}">Logout</a>
         </div>
-    {% endif %}
+    
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
+    {% else %}
+    <h2>Bienvenue</h2>
+    <label class = "label email" for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
+    <label class = "label mdp" for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
@@ -35,11 +40,20 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+    <button class="btn" type="submit">
+        Valider
     </button>
 </form>
 <div>
-    <a href= "{{path('app_register')}}" class="btn btn-lg btn-primary">Créer un compte</a>
+    {# <a href= "{{path('app_register')}}" class="btn btn-lg btn-primary">Créer un compte</a> #}
 </div>
+
+</div>
+{% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {# au cas ou base a déjà quelque chose #}
+    {{ parent() }} 
+    {{ encore_entry_link_tags('app') }}
 {% endblock %}

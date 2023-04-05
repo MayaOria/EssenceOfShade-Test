@@ -65,18 +65,18 @@ class DevisController extends AbstractController
     // return $this->file('devis.pdf', 'devis.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
 }
 
-public function download(): BinaryFileResponse
-{
-    // load the file from the filesystem
-    $file = new File('/path/to/some_file.pdf');
+// public function download(): BinaryFileResponse
+// {
+//     // load the file from the filesystem
+//     $file = new File('/path/to/some_file.pdf');
 
-    return $this->file($file);
+//     return $this->file($file);
 
-    // rename the downloaded file
-    return $this->file($file, 'custom_name.pdf');
+//     // rename the downloaded file
+//     return $this->file($file, 'custom_name.pdf');
 
-    // display the file contents in the browser instead of downloading it
-    return $this->file('invoice_3241.pdf', 'my_invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
-}
+//     // display the file contents in the browser instead of downloading it
+//     return $this->file('invoice_3241.pdf', 'my_invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
+// }
 
 }

@@ -52,6 +52,7 @@ class FleurFixtures extends Fixture implements DependentFixtureInterface
 
         
         
+        
         $manager->flush();
 
         

@@ -18,28 +18,40 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i <= 5; $i++)
-        {
+        
             $user = new User();
-            $user->setNom('UserNom'.$i);
-            $user->setPrenom('UserPrenom'.$i);
-            $user->setSociete('UserSociete'.$i);
-            $user->setTelephone('00000'.$i);
-            $user->setAdresse('rue X n° '.$i);
-            $user->setTva('BE000 '.$i);
+            $user->setNom('Danhaive');
+            $user->setPrenom('Céline');
+            $user->setSociete('Essence of Shade');
+            $user->setTelephone('+32 499290632');
+            $user->setAdresse('');
+            $user->setTva('BE0');
 
             $user->setPassword(
-                $this->passwordHasher->hashPassword($user, "test1234")
+                $this->passwordHasher->hashPassword($user, "alorat116")
             );
-            $user->setEmail('mail'.$i.'@gmail.com');
+            $user->setEmail('c.danhaive@gmail.com');
+            $manager->persist($user);
 
+            $user = new User();
+            $user->setNom('Orianne');
+            $user->setPrenom('Maya');
+            $user->setSociete('');
+            $user->setTelephone('+32 496181647');
+            $user->setAdresse('');
+            $user->setTva('BE0');
+
+            $user->setPassword(
+                $this->passwordHasher->hashPassword($user, "alorat116")
+            );
+            $user->setEmail('maya.orianne@gmail.com');
             $manager->persist($user);
             
             
+            $manager->flush();
         }
         
-        $manager->flush();
 
         
-    }
+    
 }

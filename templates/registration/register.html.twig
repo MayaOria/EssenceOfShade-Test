@@ -15,3 +15,9 @@
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
+
+{% block stylesheets %}
+    {# au cas ou base a déjà quelque chose #}
+    {{ parent() }} 
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
