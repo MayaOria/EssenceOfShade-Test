@@ -60,5 +60,13 @@ class DevisCrudController extends AbstractCrudController
         
 
     }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // ...
+            ->showEntityActionsInlined()
+        ;
+    }
     
 }
